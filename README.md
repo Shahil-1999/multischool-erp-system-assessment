@@ -53,15 +53,27 @@ A Node.js (Express) backend for a multi-school ERP system with MySQL (Sequelize)
 1. Copy `.env.example` to `.env` and fill in values:
 
 ```env
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_NAME=your_db_name
+
+# Server
 PORT=3000
-DATABASE_URL=mysql://user:pass@localhost:3306/multi_school_erp
-JWT_SECRET=change_this
-JWT_EXPIRES_IN=1h
-EMAIL_HOST=localhost
-EMAIL_PORT=1025
-EMAIL_USER=
-EMAIL_PASS=
-```
+NODE_ENV=development
+
+# JWT / Auth
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRATION=1d
+
+# Email (if using Nodemailer)
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password
+
 
 2. Install dependencies:
 
