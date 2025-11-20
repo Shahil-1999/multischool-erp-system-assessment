@@ -1,0 +1,293 @@
+{
+  "info": {
+    "name": "Multi-School ERP",
+    "_postman_id": "12345678-abcd-1234-abcd-1234567890ab",
+    "description": "Postman collection for Multi-School ERP backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"root@example.com\",\n  \"password\": \"superpass\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Request password reset",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"root@example.com\",\n  \"baseUrl\": \"http://localhost:3000\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/password/request",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "password", "request"]
+            }
+          }
+        },
+        {
+          "name": "Reset password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"password\": \"newpass123\"\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/auth/password/reset/{{resetToken}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "password", "reset", "{{resetToken}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Change own password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"password\": \"newpass123\"\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/users/change-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "Get user profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"12345\",\n  \"can_edit_students\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Schools",
+      "item": [
+        {
+          "name": "List schools",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools"]
+            }
+          }
+        },
+        {
+          "name": "Create school",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"New School\"\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/schools",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools"]
+            }
+          }
+        },
+        {
+          "name": "Get school",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Create user for school",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"School Admin\",\n  \"email\": \"admin@school.com\",\n  \"phone\": \"999999\",\n  \"role_id\": 2,\n  \"can_edit_students\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "users"]
+            }
+          }
+        },
+        {
+          "name": "List users in school",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "users"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "List students",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "students"]
+            }
+          }
+        },
+        {
+          "name": "Get student",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/students/{{studentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "students", "{{studentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create student",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Student One\",\n  \"dob\": \"2010-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "students"]
+            }
+          }
+        },
+        {
+          "name": "Update student",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Updated Student\"\n}" },
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/students/{{studentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "students", "{{studentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete student",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schools/{{school_id}}/students/{{studentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "{{school_id}}", "students", "{{studentId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "school_id", "value": "1" },
+    { "key": "userId", "value": "1" },
+    { "key": "studentId", "value": "1" },
+    { "key": "resetToken", "value": "" }
+  ]
+}
